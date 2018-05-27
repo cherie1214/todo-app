@@ -8,7 +8,7 @@ export default class ToDo extends Component {
     state = {
         isEditing: false,
         isCompleted: false,
-        todoValue: '',
+        todoValue: "",
     }
 
     render(){
@@ -33,7 +33,7 @@ export default class ToDo extends Component {
                                     isCompleted ? styles.completedText : styles.uncompletedText]}
                                 multiline={true}
                                 onChangeText={this._controlInput}
-                                returnKeyType={'done'}
+                                returnKeyType={"done"}
                                 onBlur={this._finishEditing}
                             />
                         ) : (
