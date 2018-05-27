@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get("window")
@@ -8,10 +8,12 @@ export default class ToDo extends Component {
     state = {
         isEditing: false,
         isCompleted: false,
+        todoValue: '',
     }
 
     render(){
-        const { isCompleted, isEditing } = this.state;
+        const { isCompleted, isEditing, todoValue  } = this.state;
+        const { text } = this.props;
 
         return(
             <View style={styles.container}>
@@ -22,41 +24,50 @@ export default class ToDo extends Component {
                             isCompleted ? styles.completedCircle : styles.uncompletedCircle]}
                         />
                     </TouchableOpacity>
-                    <Text style={[
-                        styles.text,
-                        isCompleted ? styles.completedText : styles.uncompletedText
-                        ]}
-                    >
-                        Todo will be here
-                    </Text>
+                    {isEditing ? (
+                            <TextInput
+                                value={todoValue}
+                                style={[
+                                    styles.input,
+                                    styles.text,
+                                    isCompleted ? styles.completedText : styles.uncompletedText]}
+                                multiline={true}
+                                onChangeText={this._controlInput}
+                                returnKeyType={'done'}
+                                onBlur={this._finishEditing}
+                            />
+                        ) : (
+                            <Text style={[
+                                styles.text,
+                                isCompleted ? styles.completedText : styles.uncompletedText
+                            ]}>{text}</Text>
+                    )}
                 </View>
-                <View style={isCompleted ? styles.hideActions : styles.showActions}>
-                    { isEditing ?
-                        <View style={styles.actions}>
-                            <TouchableOpacity onPressOut={this._finishEditing}>
-                                <View style={styles.actionContainer}>
-                                    {/*<Text style={styles.actionText}>V</Text>*/}
-                                    <Feather color="green" size={25} name="check" style={styles.actionIcon} />
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                     :
-                         <View style={styles.actions}>
-                             <TouchableOpacity onPressOut={this._startEditing}>
-                                 <View style={styles.actionContainer}>
-                                     {/*<Text style={styles.actionText}>수정</Text>*/}
-                                     <Feather color="#666" size={22} name="edit-2" style={styles.actionIcon} />
-                                 </View>
-                             </TouchableOpacity>
-                             <TouchableOpacity>
-                                 <View style={styles.actionContainer}>
-                                     {/*<Text style={styles.actionText}>삭제</Text>*/}
-                                     <Feather color="#e83737" size={22} name="delete" style={styles.actionIcon} />
-                                 </View>
-                             </TouchableOpacity>
-                         </View>
-                     }
-                </View>                
+                { isEditing ?
+                    <View style={styles.actions}>
+                        <TouchableOpacity onPressOut={this._finishEditing}>
+                            <View style={styles.actionContainer}>
+                                {/*<Text style={styles.actionText}>V</Text>*/}
+                                <Feather color="green" size={25} name="check" style={styles.actionIcon} />
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                 :
+                     <View style={styles.actions}>
+                         <TouchableOpacity onPressOut={this._startEditing}>
+                             <View style={styles.actionContainer}>
+                                 {/*<Text style={styles.actionText}>수정</Text>*/}
+                                 <Feather color="#666" size={22} name="edit-2" style={styles.actionIcon} />
+                             </View>
+                         </TouchableOpacity>
+                         <TouchableOpacity>
+                             <View style={styles.actionContainer}>
+                                 {/*<Text style={styles.actionText}>삭제</Text>*/}
+                                 <Feather color="#e83737" size={22} name="delete" style={styles.actionIcon} />
+                             </View>
+                         </TouchableOpacity>
+                     </View>
+                 }
             </View>
         )
     }
@@ -69,13 +80,21 @@ export default class ToDo extends Component {
         })
     }
     _startEditing = () => {
-         this.setState({
-             isEditing: true,
-         })
+        const { text } = this.props;
+        this.setState({
+            isEditing: true,
+            todoValue: text,
+        })
     }
     _finishEditing = () => {
         this.setState({
             isEditing: false,
+        })
+    }
+    _controlInput = () => {
+        const { text } = this.props;
+        this.setState({
+            todoValue: text,
         })
     }
 }
@@ -128,7 +147,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         marginHorizontal: 7,
     },
-    hideActions: {
-        height: 0,
+    input: {
+        marginVertical: 15,
+        width: width / 2,
     },
 })
