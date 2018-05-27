@@ -10,6 +10,7 @@ export default class App extends React.Component {
     state = {
         newToDo: "",
         loadedToDos: false,
+        toDos: {},
     }
 
     componentDidMount = () => {
@@ -17,7 +18,10 @@ export default class App extends React.Component {
     }
 
     render() {
-        const { newToDo, loadedToDos } = this.state;
+        const { newToDo, loadedToDos, toDos} = this.state;
+
+        console.log(toDos)
+
         if(!loadedToDos){
             return <AppLoading></AppLoading>
         }

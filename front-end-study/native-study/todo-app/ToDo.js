@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         width: width / 2,
-        justifyContent: 'space-between',
     },
     circle: {
         marginRight: 10,
