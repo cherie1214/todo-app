@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions, TextInput } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import PropTypes from 'prop-types';
 
 const { width, height } = Dimensions.get("window")
 
 export default class ToDo extends Component {
-    state = {
-        isEditing: false,
-        isCompleted: false,
-        todoValue: "",
+    constructor(props){
+        super(props);
+        this.state = {
+            isEditing: false,
+            todoValue: props.text,
+        }
+    }
+
+    static propTypes = {
+        text: PropTypes.string.isRequired,
+        isCompleted: PropTypes.bool.isRequired,
+        deleteToDo: PropTypes.func.isRequired,
+        id: PropTypes.string.isRequired,
     }
 
     render(){
         const { isCompleted, isEditing, todoValue  } = this.state;
-        const { text } = this.props;
+        const { text, id, deleteToDo } = this.props;
 
         return(
             <View style={styles.container}>
@@ -60,7 +70,7 @@ export default class ToDo extends Component {
                                  <Feather color="#666" size={22} name="edit-2" style={styles.actionIcon} />
                              </View>
                          </TouchableOpacity>
-                         <TouchableOpacity>
+                         <TouchableOpacity onPressOut={() => deleteToDo(id)}>
                              <View style={styles.actionContainer}>
                                  {/*<Text style={styles.actionText}>삭제</Text>*/}
                                  <Feather color="#e83737" size={22} name="delete" style={styles.actionIcon} />
@@ -80,10 +90,8 @@ export default class ToDo extends Component {
         })
     }
     _startEditing = () => {
-        const { text } = this.props;
         this.setState({
             isEditing: true,
-            todoValue: text,
         })
     }
     _finishEditing = () => {
