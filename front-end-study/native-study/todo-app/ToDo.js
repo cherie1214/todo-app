@@ -10,7 +10,7 @@ export default class ToDo extends Component {
         super(props);
         this.state = {
             isEditing: false,
-            todoValue: props.text,
+            toDoValue: props.text,
         }
     }
 
@@ -20,11 +20,12 @@ export default class ToDo extends Component {
         deleteToDo: PropTypes.func.isRequired,
         uncompleteToDo: PropTypes.func.isRequired,
         completeToDo: PropTypes.func.isRequired,
+        updateToDo: PropTypes.func.isRequired,
         id: PropTypes.string.isRequired,
     }
 
     render(){
-        const { isEditing, todoValue  } = this.state;
+        const { isEditing, toDoValue  } = this.state;
         const { text, id, deleteToDo, isCompleted } = this.props;
 
         return(
@@ -38,7 +39,7 @@ export default class ToDo extends Component {
                     </TouchableOpacity>
                     {isEditing ? (
                             <TextInput
-                                value={todoValue}
+                                value={toDoValue}
                                 style={[
                                     styles.text,
                                     styles.input,
@@ -98,14 +99,16 @@ export default class ToDo extends Component {
         })
     }
     _finishEditing = () => {
+        const { toDoValue } = this.state;
+        const { id, updateToDo } = this.props;
+        updateToDo(id, toDoValue);
         this.setState({
             isEditing: false,
         })
     }
-    _controlInput = () => {
-        const { text } = this.props;
+    _controlInput = (text) => {
         this.setState({
-            todoValue: text,
+            toDoValue: text,
         })
     }
 }
