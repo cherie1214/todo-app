@@ -1,15 +1,25 @@
 import React from 'react';
 import { StyleSheet, Text, View, StatusBar, TextInput, Dimensions, Platform, ScrollView } from 'react-native';
-import ToDo from './ToDo'
+import { AppLoading } from 'expo';
+import ToDo from './ToDo';
 
 const { width, height } = Dimensions.get("window")
 
 export default class App extends React.Component {
     state = {
         newToDo: '',
+        loadedToDos: false,
     }
+
+    componentDidMount = () => {
+        this._loadToDos();
+    }
+
     render() {
-        const { newToDo } = this.state;
+        const { newToDo, loadedToDos } = this.state;
+        if(!loadedToDos){
+            return <AppLoading></AppLoading>
+        }
 
         return (
             <View style={styles.container}>
@@ -26,7 +36,7 @@ export default class App extends React.Component {
                         returnKeyType={'done'}
                         autoCorrect={false}
                     />
-                <ScrollView contentContainerStyle={styles.toDos}>
+                    <ScrollView contentContainerStyle={styles.toDos}>
                         <ToDo text={'hello i will be a To do'}/>
                     </ScrollView>
                 </View>
@@ -36,6 +46,11 @@ export default class App extends React.Component {
     _controlNewToDo = text => {
         this.setState({
             newToDo: text,
+        })
+    }
+    _loadToDos = () => {
+        this.setState({
+            loadedToDos: true,
         })
     }
 

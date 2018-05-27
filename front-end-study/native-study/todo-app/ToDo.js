@@ -28,8 +28,8 @@ export default class ToDo extends Component {
                             <TextInput
                                 value={todoValue}
                                 style={[
-                                    styles.input,
                                     styles.text,
+                                    styles.input,
                                     isCompleted ? styles.completedText : styles.uncompletedText]}
                                 multiline={true}
                                 onChangeText={this._controlInput}
