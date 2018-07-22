@@ -1,0 +1,33 @@
+[
+    {
+        "id" : 1,
+        "name" : "아메리카노",
+        "code" : "AMN_00",
+        "count" : 0,
+        "price" : 3500
+    },{
+        "id" : 2,
+        "name" : "바닐라라떼",
+        "code" : "BNL_00",
+        "count" : 0,
+        "price" : 4000
+    },{
+        "id" : 3,
+        "name" : "캬라멜마끼아또",
+        "code" : "CM_00",
+        "count" : 0,
+        "price" : 4500
+    },{
+        "id" : 4,
+        "name" : "슈크림라떼",
+        "code" : "CHL_00",
+        "count" : 0,
+        "price" : 6100
+    },{
+        "id" : 5,
+        "name" : "그린티프라푸치노",
+        "code" : "GRP_00",
+        "count" : 0,
+        "price" : 6300
+    }
+]

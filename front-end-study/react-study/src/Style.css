@@ -1,0 +1,6 @@
+.h1 {color:#ccc;}
+.section {margin:10px; padding:20px; border:1px #ccc solid;}
+.menuStyle li span, .menuStyle li select {display: inline-block; margin:0 5px;}
+.menuStyle li span:first-child {width:130px;}
+.ovh {overflow: hidden;}
+.half-box {float:left; width:50%;}

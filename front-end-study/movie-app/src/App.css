@@ -1,0 +1,25 @@
+a {color:#000; text-decoration: none;}
+p {margin:0; padding:0;}
+
+.section {padding:40px; background:#eee;}
+
+.header {
+    display: -webkit-flex;
+    display:flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    height:100px;
+    background: #13306b;
+}
+.header .depth1 {margin:0 30px; font-size:20px; color:#718dc3;}
+.header .depth1:hover {text-decoration: underline;}
+.header .depth1:active, .header .depth1.active {color:#fff;}
+
+.footer {margin:0; height:50px; line-height: 50px; text-align: center; background:#ccc;}
+
+.movie ul {overflow: hidden; margin:-1%; padding:0;}
+.movie ul li {float:left; margin: 1%; padding:1%; width:46%; background: #fff; list-style: none; }
+.movie ul li .rating {text-align: right;}
+.movie ul li .img-box {text-align: center;}

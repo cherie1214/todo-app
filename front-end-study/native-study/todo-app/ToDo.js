@@ -73,7 +73,10 @@ export default class ToDo extends Component {
                                  <Feather color="#666" size={22} name="edit-2" style={styles.actionIcon} />
                              </View>
                          </TouchableOpacity>
-                         <TouchableOpacity onPressOut={() => deleteToDo(id)}>
+                         <TouchableOpacity onPressOut={(event) => {
+                                 event.stopPropagation;
+                                 deleteToDo(id);
+                             }}>
                              <View style={styles.actionContainer}>
                                  {/*<Text style={styles.actionText}>삭제</Text>*/}
                                  <Feather color="#e83737" size={22} name="delete" style={styles.actionIcon} />
@@ -85,7 +88,8 @@ export default class ToDo extends Component {
         )
     }
 
-    _toggleComplete = () => {
+    _toggleComplete = (event) => {
+        event.stopPropagation();
         const { isCompleted, uncompleteToDo, completeToDo, id } = this.props;
         if(isCompleted){
             uncompleteToDo(id);
@@ -93,12 +97,14 @@ export default class ToDo extends Component {
             completeToDo(id);
         }
     }
-    _startEditing = () => {
+    _startEditing = (event) => {
+        event.stopPropagation();
         this.setState({
             isEditing: true,
         })
     }
-    _finishEditing = () => {
+    _finishEditing = (event) => {
+        event.stopPropagation();
         const { toDoValue } = this.state;
         const { id, updateToDo } = this.props;
         updateToDo(id, toDoValue);
@@ -157,7 +163,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     actionContainer: {
-        marginVertical: 10,
+        marginVertical: 15,
         marginHorizontal: 7,
     },
     input: {
